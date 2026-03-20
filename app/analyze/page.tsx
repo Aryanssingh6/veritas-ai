@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Navbar from "../components/Navbar";
 
 export default function Analyze() {
   const [file, setFile] = useState<File | null>(null);
@@ -33,18 +34,7 @@ export default function Analyze() {
         <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-purple-600 rounded-full filter blur-3xl opacity-10"></div>
       </div>
 
-      <nav className="relative z-10 flex items-center justify-between px-10 py-5 border-b border-blue-900 border-opacity-50 backdrop-blur-sm bg-black bg-opacity-20">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center text-sm font-bold">V</div>
-          <h1 className="text-2xl font-bold text-white">Veritas<span className="text-cyan-400">.ai</span></h1>
-        </div>
-        <div className="flex gap-8 text-gray-400 text-sm">
-          <a href="/" className="hover:text-cyan-400 transition">Home</a>
-          <a href="/analyze" className="text-cyan-400 font-semibold">Analyze</a>
-          <a href="/dashboard" className="hover:text-cyan-400 transition">Dashboard</a>
-          <a href="/about" className="hover:text-cyan-400 transition">About</a>
-        </div>
-      </nav>
+      <Navbar />
 
       <section className="relative z-10 flex flex-col items-center justify-center mt-16 px-4">
         <div className="inline-block bg-blue-900 bg-opacity-40 border border-blue-700 text-blue-300 text-sm px-4 py-1 rounded-full mb-6">
