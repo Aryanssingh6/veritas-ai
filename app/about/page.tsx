@@ -45,12 +45,7 @@ const team = [
 
 export default function About() {
   return (
-    <main className="min-h-screen bg-black text-white overflow-hidden">
-      {/* Background glows */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute top-1/3 left-10 w-80 h-80 bg-blue-600 rounded-full filter blur-[140px] opacity-8" />
-        <div className="absolute bottom-1/4 right-10 w-72 h-72 bg-cyan-500 rounded-full filter blur-[120px] opacity-6" />
-      </div>
+    <main className="min-h-screen bg-transparent text-white overflow-hidden">
 
       <Navbar />
 

@@ -2,12 +2,7 @@ import Navbar from "../components/Navbar";
 
 export default function Download() {
   return (
-    <main className="min-h-screen bg-black text-white overflow-hidden">
-      {/* Background glows */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-blue-600 rounded-full filter blur-[140px] opacity-10" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-cyan-500 rounded-full filter blur-[120px] opacity-8" />
-      </div>
+    <main className="min-h-screen bg-transparent text-white overflow-hidden">
 
       <Navbar />
 
