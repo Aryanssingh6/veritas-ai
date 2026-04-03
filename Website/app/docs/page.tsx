@@ -35,12 +35,7 @@ const docSections = [
 
 export default function Docs() {
   return (
-    <main className="min-h-screen bg-black text-white overflow-hidden">
-      {/* Background glows */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute top-20 right-1/4 w-[400px] h-[400px] bg-blue-700 rounded-full filter blur-[140px] opacity-8" />
-        <div className="absolute bottom-1/3 left-1/4 w-[350px] h-[350px] bg-cyan-600 rounded-full filter blur-[120px] opacity-6" />
-      </div>
+    <main className="min-h-screen bg-transparent text-white overflow-hidden">
 
       <Navbar />
 
@@ -63,19 +58,18 @@ export default function Docs() {
         </div>
 
         {/* In Progress Banner */}
-        <div className="bg-gradient-to-r from-amber-900/30 to-orange-900/20 border border-amber-700/50 rounded-2xl px-8 py-5 flex items-center gap-5 mb-12">
-          <span className="text-3xl">📝</span>
+        <div style={{
+          background: "rgba(56,189,248,0.05)", border: "1px solid rgba(56,189,248,0.2)",
+          borderRadius: "16px", padding: "20px 32px", display: "flex", alignItems: "center", gap: "20px", marginBottom: "48px"
+        }}>
+          <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: "rgba(56,189,248,0.1)", border: "1px solid rgba(56,189,248,0.2)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
           <div>
-            <p className="font-bold text-amber-300 mb-1">Documentation in Progress</p>
-            <p className="text-gray-400 text-sm">
-              Our team is actively writing comprehensive documentation. The structure below outlines what will be
-              covered. In the meantime, feel free to browse the{" "}
-              <a
-                href="https://github.com/Aryanssingh6/veritas-ai"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-cyan-400 underline underline-offset-2"
-              >
+            <p style={{ fontWeight: "600", color: "#38bdf8", marginBottom: "4px", fontSize: "0.95rem" }}>Documentation in Progress</p>
+            <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.85rem" }}>
+              Our team is actively writing comprehensive documentation. In the meantime, browse the{" "}
+              <a href="https://github.com/Aryanssingh6/veritas-ai" target="_blank" rel="noopener noreferrer" style={{ color: "#38bdf8", textDecoration: "underline", textUnderlineOffset: "3px" }}>
                 GitHub repository
               </a>{" "}
               for source code and README files.

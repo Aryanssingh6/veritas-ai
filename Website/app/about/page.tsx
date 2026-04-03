@@ -88,8 +88,8 @@ export default function About() {
         </div>
 
         {/* How it works */}
-        <div className="bg-gray-900/40 rounded-3xl p-8 border border-gray-800 mb-6 backdrop-blur-sm">
-          <h3 className="text-2xl font-bold mb-10 text-center">⚙️ How It Works</h3>
+        <div className="bg-white/[0.02] rounded-3xl p-8 border border-white/[0.06] mb-6 backdrop-blur-sm">
+          <h3 className="text-2xl font-bold mb-10 text-center tracking-tight">How It Works</h3>
           <div className="relative">
             <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-blue-600 to-cyan-600 opacity-30" />
             <div className="space-y-10">
@@ -117,8 +117,8 @@ export default function About() {
         </div>
 
         {/* Tech Stack */}
-        <div className="bg-gray-900/40 rounded-3xl p-8 border border-gray-800 mb-6 backdrop-blur-sm">
-          <h3 className="text-2xl font-bold mb-6">🛠️ Tech Stack</h3>
+        <div className="bg-white/[0.02] rounded-3xl p-8 border border-white/[0.06] mb-6 backdrop-blur-sm">
+          <h3 className="text-2xl font-bold mb-6 tracking-tight">Tech Stack</h3>
           <div className="grid grid-cols-2 gap-4">
             {[
               { category: "Frontend", techs: ["Next.js", "React", "Tailwind CSS"] },
@@ -144,8 +144,8 @@ export default function About() {
         </div>
 
         {/* Team */}
-        <div className="bg-gray-900/40 rounded-3xl p-8 border border-gray-800 backdrop-blur-sm">
-          <h3 className="text-2xl font-bold mb-2">👥 Meet the Team</h3>
+        <div className="bg-white/[0.02] rounded-3xl p-8 border border-white/[0.06] backdrop-blur-sm">
+          <h3 className="text-2xl font-bold mb-2 tracking-tight">Meet the Team</h3>
           <p className="text-gray-500 text-sm mb-8">5 builders on a mission to make truth verifiable.</p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">

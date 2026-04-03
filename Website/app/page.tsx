@@ -1,47 +1,23 @@
 "use client";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import FadeIn from "./components/FadeIn";
 import Link from "next/link";
-import { useEffect, useRef, useState, ReactNode } from "react";
-
-// ── Intersection Observer for Premium Scroll Reveal ──────────────────
-function FadeIn({ children, delay = 0, yOffset = 24 }: { children: ReactNode; delay?: number; yOffset?: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      style={{
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "translateY(0)" : `translateY(${yOffset}px)`,
-        transition: `opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
-        willChange: "opacity, transform",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
 
 // Removed ScrollProgress and CursorGlow for performance.
+const GridIcon = ({ path, color = "#38bdf8" }: { path: string; color?: string }) => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <path d={path} />
+  </svg>
+);
+
 const gridFeatures = [
-  { icon: "🔓", title: "Open Source", desc: "100% open source framework. Inspect the models, weights, and detection code freely." },
-  { icon: "🚀", title: "Production Ready", desc: "Battle-tested with auto-scaling, asynchronous processing, and built in request validation." },
-  { icon: "🌐", title: "No Vendor Lock-in", desc: "Run your detection pipeline anywhere—on AWS, GCP, or your own on-prem hardware." },
-  { icon: "🔍", title: "Frame-Level CNN", desc: "Analyzes individual frames for spatial artifacts, blending anomalies, and resolution inconsistencies." },
-  { icon: "⏱️", title: "Temporal LSTM", desc: "Tracks micro-expressions and unnatural temporal variations across sequential frames." },
-  { icon: "🔌", title: "100+ Integrations", desc: "Works out of the box with FastAPI, PyTorch, React, and major video processing pipelines." },
+  { icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z", title: "Open Source", desc: "100% open source framework. Inspect the models, weights, and detection code freely." },
+  { icon: "M13 2L3 14h9l-1 8 10-12h-9l1-8z", title: "Production Ready", desc: "Battle-tested with auto-scaling, asynchronous processing, and built in request validation." },
+  { icon: "M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83", title: "No Vendor Lock-in", desc: "Run your detection pipeline anywhere—on AWS, GCP, or your own on-prem hardware." },
+  { icon: "M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z", title: "Frame-Level CNN", desc: "Analyzes individual frames for spatial artifacts, blending anomalies, and resolution inconsistencies." },
+  { icon: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM12 8v4l3 3", title: "Temporal LSTM", desc: "Tracks micro-expressions and unnatural temporal variations across sequential frames." },
+  { icon: "M4 6h16M4 12h16M4 18h7", title: "100+ Integrations", desc: "Works out of the box with FastAPI, PyTorch, React, and major video processing pipelines." },
 ];
 
 export default function Home() {
@@ -66,9 +42,9 @@ export default function Home() {
       <section
         style={{
           position: "relative",
-          paddingTop: "160px",
-          paddingBottom: "120px",
-          overflow: "hidden", // contains blobs
+          paddingTop: "100px",
+          paddingBottom: "80px",
+          overflow: "hidden",
         }}
       >
 
@@ -86,7 +62,7 @@ export default function Home() {
                 backdropFilter: "blur(10px)",
               }}
             >
-              <span style={{ width: "8px", height: "8px", background: "#ef4444", borderRadius: "50%" }} />
+              <span style={{ width: "8px", height: "8px", background: "#38bdf8", borderRadius: "50%", boxShadow: "0 0 8px #38bdf8" }} />
               Veritas.ai Deepfake Platform
             </div>
           </FadeIn>
@@ -107,7 +83,7 @@ export default function Home() {
           <FadeIn delay={0.3} yOffset={30}>
             <div style={{ fontSize: "clamp(1.2rem, 3vw, 1.8rem)", color: "rgba(255,255,255,0.8)", maxWidth: "850px", margin: "0 auto 56px", lineHeight: "1.6", fontWeight: "500", letterSpacing: "-0.01em" }}>
               Veritas is an open AI engineering platform built to catch <span style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255, 255, 255, 0.05)", border: "1px solid rgba(255, 255, 255, 0.1)", padding: "2px 14px", borderRadius: "20px", color: "#fff", fontSize: "0.8em", transform: "translateY(-4px)" }}>
-                <span style={{ width: "6px", height: "6px", background: "#ef4444", borderRadius: "50%" }} /> spatial anomalies
+                <span style={{ width: "6px", height: "6px", background: "#38bdf8", borderRadius: "50%" }} /> spatial anomalies
               </span>
               ,{" "}and identify{" "}
               <span style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255, 255, 255, 0.05)", border: "1px solid rgba(255, 255, 255, 0.1)", padding: "2px 14px", borderRadius: "20px", color: "#fff", fontSize: "0.8em", transform: "translateY(-4px)", marginTop: "12px" }}>
@@ -124,12 +100,14 @@ export default function Home() {
                 href="/analyze"
                 style={{
                   display: "inline-flex", alignItems: "center", gap: "8px",
-                  background: "#ffffff", color: "#000000", fontWeight: "600", borderRadius: "8px", padding: "16px 40px",
-                  fontSize: "1.05rem", textDecoration: "none", transition: "all 0.2s ease",
-                  border: "1px solid transparent"
+                  background: "linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%)",
+                  color: "#ffffff", fontWeight: "600", borderRadius: "8px", padding: "16px 40px",
+                  fontSize: "1.05rem", textDecoration: "none", transition: "all 0.25s ease",
+                  border: "1px solid rgba(56,189,248,0.3)",
+                  boxShadow: "0 0 24px rgba(14,165,233,0.35), 0 4px 12px rgba(0,0,0,0.4)"
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = "#f3f4f6"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = "#ffffff"; }}
+                onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 0 40px rgba(14,165,233,0.6), 0 8px 20px rgba(0,0,0,0.5)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 0 24px rgba(14,165,233,0.35), 0 4px 12px rgba(0,0,0,0.4)"; e.currentTarget.style.transform = "translateY(0)"; }}
               >
                 Analyze Video
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -149,6 +127,22 @@ export default function Home() {
               </Link>
             </div>
           </FadeIn>
+
+          {/* Stats Row */}
+          <FadeIn delay={0.55}>
+            <div style={{ display: "flex", gap: "40px", justifyContent: "center", flexWrap: "wrap", marginTop: "16px", paddingTop: "48px", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+              {[
+                { value: "98.4%", label: "Detection Accuracy" },
+                { value: "20K+", label: "GitHub Stars" },
+                { value: "5M+", label: "Videos Analyzed" },
+              ].map((stat) => (
+                <div key={stat.label} style={{ textAlign: "center" }}>
+                  <div style={{ fontSize: "1.8rem", fontWeight: "800", letterSpacing: "-0.04em", color: "#fff" }}>{stat.value}</div>
+                  <div style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.4)", marginTop: "4px", fontWeight: "500" }}>{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </FadeIn>
         </div>
       </section>
 
@@ -159,7 +153,7 @@ export default function Home() {
           <FadeIn delay={0.05}>
             <div 
               style={{ background: "#050505", border: "1px solid rgba(255,255,255,0.05)", borderRadius: "20px", padding: "40px 32px", height: "100%", transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)", boxShadow: "0 4px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)" }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = "#0a0a0c"; e.currentTarget.style.borderColor = "rgba(20, 184, 166, 0.3)"; e.currentTarget.style.transform = "translateY(-8px)"; e.currentTarget.style.boxShadow = "0 20px 40px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1)"; }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "#0a0a0c"; e.currentTarget.style.borderColor = "rgba(14,165,233,0.35)"; e.currentTarget.style.transform = "translateY(-8px)"; e.currentTarget.style.boxShadow = "0 20px 40px rgba(0,0,0,0.8), 0 0 20px rgba(14,165,233,0.1), inset 0 1px 0 rgba(255,255,255,0.1)"; }}
               onMouseLeave={(e) => { e.currentTarget.style.background = "#050505"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 4px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)"; }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "32px" }}>
@@ -177,12 +171,12 @@ export default function Home() {
           <FadeIn delay={0.15}>
             <div 
               style={{ background: "#050505", border: "1px solid rgba(255,255,255,0.05)", borderRadius: "20px", padding: "40px 32px", height: "100%", transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)", boxShadow: "0 4px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)" }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = "#0a0a0c"; e.currentTarget.style.borderColor = "rgba(249, 115, 22, 0.3)"; e.currentTarget.style.transform = "translateY(-8px)"; e.currentTarget.style.boxShadow = "0 20px 40px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1)"; }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "#0a0a0c"; e.currentTarget.style.borderColor = "rgba(14,165,233,0.35)"; e.currentTarget.style.transform = "translateY(-8px)"; e.currentTarget.style.boxShadow = "0 20px 40px rgba(0,0,0,0.8), 0 0 20px rgba(14,165,233,0.1), inset 0 1px 0 rgba(255,255,255,0.1)"; }}
               onMouseLeave={(e) => { e.currentTarget.style.background = "#050505"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 4px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)"; }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "32px" }}>
                 <span style={{ background: "rgba(255,255,255,0.05)", padding: "6px 16px", borderRadius: "20px", fontSize: "0.85rem", color: "#a1a1aa", fontWeight: "600" }}>02. Trace</span>
-                <span style={{ width: "8px", height: "8px", background: "#f97316", borderRadius: "50%", boxShadow: "0 0 10px #f97316" }}></span>
+                <span style={{ width: "8px", height: "8px", background: "#38bdf8", borderRadius: "50%", boxShadow: "0 0 10px #38bdf8" }}></span>
               </div>
               <h3 style={{ fontSize: "1.4rem", fontWeight: "700", color: "#fff", marginBottom: "16px", letterSpacing: "-0.02em" }}>Enable Logging</h3>
               <p style={{ fontSize: "0.95rem", color: "#71717a", marginBottom: "24px", lineHeight: "1.6" }}>Connect your script to monitor deepfake traces and model predictions in real time.</p>
@@ -196,12 +190,12 @@ export default function Home() {
           <FadeIn delay={0.25}>
             <div 
               style={{ background: "#050505", border: "1px solid rgba(255,255,255,0.05)", borderRadius: "20px", padding: "40px 32px", height: "100%", transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)", boxShadow: "0 4px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)" }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = "#0a0a0c"; e.currentTarget.style.borderColor = "rgba(190, 18, 60, 0.3)"; e.currentTarget.style.transform = "translateY(-8px)"; e.currentTarget.style.boxShadow = "0 20px 40px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1)"; }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "#0a0a0c"; e.currentTarget.style.borderColor = "rgba(14,165,233,0.35)"; e.currentTarget.style.transform = "translateY(-8px)"; e.currentTarget.style.boxShadow = "0 20px 40px rgba(0,0,0,0.8), 0 0 20px rgba(14,165,233,0.1), inset 0 1px 0 rgba(255,255,255,0.1)"; }}
               onMouseLeave={(e) => { e.currentTarget.style.background = "#050505"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 4px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)"; }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "32px" }}>
                 <span style={{ background: "rgba(255,255,255,0.05)", padding: "6px 16px", borderRadius: "20px", fontSize: "0.85rem", color: "#a1a1aa", fontWeight: "600" }}>03. Run</span>
-                <span style={{ width: "8px", height: "8px", background: "#e11d48", borderRadius: "50%", boxShadow: "0 0 10px #e11d48" }}></span>
+                <span style={{ width: "8px", height: "8px", background: "#38bdf8", borderRadius: "50%", boxShadow: "0 0 10px #38bdf8" }}></span>
               </div>
               <h3 style={{ fontSize: "1.4rem", fontWeight: "700", color: "#fff", marginBottom: "16px", letterSpacing: "-0.02em" }}>Predict Instantly</h3>
               <p style={{ fontSize: "0.95rem", color: "#71717a", marginBottom: "24px", lineHeight: "1.6" }}>Run the spatial-temporal model to extract truth probabilities from raw pixels.</p>
@@ -373,8 +367,14 @@ export default function Home() {
       </section>
 
       {/* ── FEATURES GRID ─────────────────────────────────────────── */}
-      <section style={{ position: "relative", backgroundColor: "#000", borderTop: "1px solid rgba(255,255,255,0.05)", padding: "140px 24px" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+      <section style={{ position: "relative", background: "transparent", padding: "140px 24px" }}>
+        {/* Smooth top-fade overlay — blends into dark without covering content */}
+        <div style={{
+          position: "absolute", top: 0, left: 0, right: 0, height: "120px",
+          background: "linear-gradient(to bottom, rgba(8,10,16,0.95) 0%, transparent 100%)",
+          pointerEvents: "none", zIndex: 0
+        }} />
+        <div style={{ maxWidth: "1200px", margin: "0 auto", position: "relative", zIndex: 1 }}>
           <FadeIn>
             <h2 style={{ fontSize: "2.3rem", fontWeight: "800", letterSpacing: "-0.03em", marginBottom: "60px", textAlign: "center" }}>
               Why Choose Veritas.ai
@@ -391,11 +391,11 @@ export default function Home() {
                 onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.04)"; e.currentTarget.style.transform = "translateY(-8px) scale(1.02)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)"; }}
                 onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.02)"; e.currentTarget.style.transform = "translateY(0) scale(1)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)"; }}>
                   <div style={{
-                    width: "48px", height: "48px", borderRadius: "12px", background: `#000`,
-                    border: `1px solid rgba(255,255,255,0.1)`, display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: "1.4rem", marginBottom: "24px"
+                    width: "48px", height: "48px", borderRadius: "12px", background: "rgba(56,189,248,0.06)",
+                    border: "1px solid rgba(56,189,248,0.15)", display: "flex", alignItems: "center", justifyContent: "center",
+                    marginBottom: "24px"
                   }}>
-                    {f.icon}
+                    <GridIcon path={f.icon} />
                   </div>
                   <h3 style={{ fontSize: "1.25rem", fontWeight: "700", marginBottom: "16px", color: "#fff" }}>{f.title}</h3>
                   <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.55)", lineHeight: "1.7" }}>{f.desc}</p>
@@ -411,14 +411,16 @@ export default function Home() {
         <FadeIn>
           <div
             style={{
-              background: "#0a0a0c", border: "1px solid rgba(255,255,255,0.1)",
+              background: "linear-gradient(135deg, #020408 0%, #04080f 50%, #020408 100%)",
+              border: "1px solid rgba(255,255,255,0.06)",
               borderRadius: "24px", padding: "80px 40px", textAlign: "center", position: "relative", overflow: "hidden",
+              boxShadow: "0 0 40px rgba(14,165,233,0.05), inset 0 1px 0 rgba(255,255,255,0.04)"
             }}
           >
             
             <div style={{ position: "relative", zIndex: 1 }}>
               <h2 style={{ fontSize: "clamp(2rem, 4.5vw, 3rem)", fontWeight: "800", letterSpacing: "-0.04em", color: "#fff", marginBottom: "20px" }}>
-                Ready to find the <span style={{ fontStyle: "italic", fontFamily: "var(--font-fraunces), serif", color: "#ef4444" }}>truth?</span>
+                Ready to find the <span style={{ fontStyle: "italic", fontFamily: "var(--font-fraunces), serif", color: "#38bdf8" }}>truth?</span>
               </h2>
               <p style={{ fontSize: "1.2rem", color: "rgba(255,255,255,0.6)", marginBottom: "40px", maxWidth: "540px", margin: "0 auto 48px", lineHeight: "1.6" }}>
                 Upload your first video and get a frame-by-frame verdict with confidence scores in seconds.
@@ -427,11 +429,14 @@ export default function Home() {
               <Link
                 href="/analyze"
                 style={{
-                  background: "#ffffff", color: "#000000", fontWeight: "600", borderRadius: "8px", padding: "16px 48px",
-                  fontSize: "1.05rem", textDecoration: "none", display: "inline-flex", transition: "all 0.2s ease",
+                  background: "linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%)",
+                  color: "#ffffff", fontWeight: "600", borderRadius: "8px", padding: "16px 48px",
+                  fontSize: "1.05rem", textDecoration: "none", display: "inline-flex", transition: "all 0.25s ease",
+                  boxShadow: "0 0 24px rgba(14,165,233,0.4), 0 4px 12px rgba(0,0,0,0.4)",
+                  border: "1px solid rgba(56,189,248,0.3)"
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = "#f3f4f6"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = "#ffffff"; }}
+                onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 0 40px rgba(14,165,233,0.65), 0 8px 20px rgba(0,0,0,0.5)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 0 24px rgba(14,165,233,0.4), 0 4px 12px rgba(0,0,0,0.4)"; e.currentTarget.style.transform = "translateY(0)"; }}
               >
                 Analyze a Video Now
               </Link>
@@ -440,50 +445,7 @@ export default function Home() {
         </FadeIn>
       </section>
 
-      {/* ── FOOTER ───────────────────────────────────────────────── */}
-      <footer style={{ backgroundColor: "#000", borderTop: "1px solid rgba(255,255,255,0.05)", padding: "80px 24px" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "60px" }}>
-          <div>
-            <Link href="/" style={{ textDecoration: "none", display: "inline-flex", alignItems: "baseline", color: "#ffffff", lineHeight: 1 }}>
-              <span style={{ fontFamily: "'Inter', sans-serif", fontWeight: "800", fontSize: "1.85rem", letterSpacing: "-0.06em" }}>veri</span>
-              <span style={{ fontFamily: "var(--font-fraunces), serif", fontStyle: "italic", fontWeight: "400", fontSize: "2.6rem", margin: "0 0.01em 0 -0.04em", transform: "translateY(3px)", display: "inline-block" }}>t</span>
-              <span style={{ position: "relative", display: "inline-block", fontFamily: "'Inter', sans-serif", fontWeight: "800", fontSize: "1.85rem", letterSpacing: "-0.06em" }}>
-                a
-                <span style={{ position: "absolute", top: "50%", left: "-10%", width: "120%", height: "3px", background: "#000", transform: "rotate(-25deg)" }} />
-              </span>
-              <span style={{ fontFamily: "'Inter', sans-serif", fontWeight: "800", fontSize: "1.85rem", letterSpacing: "-0.06em" }}>s</span>
-              <span style={{ fontFamily: "'Inter', sans-serif", fontWeight: "800", fontSize: "1.85rem", color: "#ef4444", letterSpacing: "-0.03em", marginLeft: "2px" }}>.ai</span>
-            </Link>
-            <p style={{ fontSize: "0.95rem", color: "rgba(255,255,255,0.4)", marginTop: "20px", maxWidth: "300px", lineHeight: "1.7" }}>
-              Open-source AI platform for advanced deepfake detection, temporal modeling, and frame-level spatial analysis.
-            </p>
-            <div style={{ marginTop: "32px", fontSize: "0.85rem", color: "rgba(255,255,255,0.3)" }}>
-              © {new Date().getFullYear()} Veritas.ai. Built with Next.js.
-            </div>
-          </div>
-
-          <div style={{ display: "flex", gap: "100px", flexWrap: "wrap" }}>
-            {[
-              { title: "Product", links: ["Analyze Video", "Unified API", "Mobile App", "Enterprise"] },
-              { title: "Ecosystem", links: ["Documentation", "GitHub 20k stars", "Models", "Releases"] },
-              { title: "Community", links: ["LinkedIn 69k followers", "X (Twitter)", "YouTube Tutorials", "Slack Channel"] },
-            ].map(col => (
-               <div key={col.title}>
-                 <h4 style={{ fontSize: "1rem", fontWeight: "600", color: "#fff", marginBottom: "24px" }}>{col.title}</h4>
-                 <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-                   {col.links.map(l => (
-                     <span key={l} style={{ fontSize: "0.95rem", color: "rgba(255,255,255,0.5)", cursor: "pointer", transition: "color 0.2s ease" }}
-                           onMouseEnter={(e) => e.currentTarget.style.color = "#fff"}
-                           onMouseLeave={(e) => e.currentTarget.style.color = "rgba(255,255,255,0.5)"}>
-                       {l}
-                     </span>
-                   ))}
-                 </div>
-               </div>
-            ))}
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
