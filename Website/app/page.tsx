@@ -11,13 +11,101 @@ const GridIcon = ({ path, color = "#38bdf8" }: { path: string; color?: string })
   </svg>
 );
 
+const EnsembleDiagram = () => (
+  <div style={{
+    position: 'relative', height: '400px', width: '100%',
+    background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: '24px', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center',
+    boxShadow: '0 20px 40px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.05)',
+    willChange: 'transform, opacity',
+    transform: 'translateZ(0)'
+  }}>
+    <svg width="100%" height="100%" viewBox="0 0 500 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* Arrow Marker */}
+      <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+          <polygon points="0 0, 10 3.5, 0 7" fill="rgba(56,189,248,0.5)" />
+        </marker>
+      </defs>
+
+      {/* Input Arrow */}
+      <path d="M20 150 L100 150 M80 135 L105 150 L80 165" stroke="#38bdf8" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+      <text x="60" y="125" fill="#38bdf8" fontSize="12" fontWeight="bold" textAnchor="middle">Input</text>
+
+      {/* Grouping Bracket */}
+      <path d="M150 50 L140 50 L140 250 L150 250" stroke="rgba(255,255,255,0.2)" strokeWidth="1" fill="none" />
+      <text x="135" y="150" fill="#a1a1aa" fontSize="10" textAnchor="middle" style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg) translate(0, 105px)' }}>Open-Source Pretrained Models</text>
+
+      {/* Model Nodes (5 Circles) */}
+      {[50, 100, 150, 200, 250].map((y, i) => (
+        <g key={i}>
+          <circle cx="180" cy={y} r="18" fill="rgba(14,165,233,0.1)" stroke="#0ea5e9" strokeWidth="1.5" />
+          <text x="180" y={y + 4} fill="#fff" fontSize="10" fontWeight="bold" textAnchor="middle">{`M${i + 1}`}</text>
+          {/* Connection to Ensemble Box */}
+          <path d={`M198 ${y} L315 ${110 + i * 20}`} stroke="rgba(56,189,248,0.5)" strokeWidth="1.2" markerEnd="url(#arrowhead)" />
+          {i === 0 && <text x="180" y="25" fill="#fff" fontSize="10" fontWeight="bold" textAnchor="middle">CNN+LSTM</text>}
+        </g>
+      ))}
+
+      {/* Ensemble Method Box */}
+      <rect x="320" y="100" width="100" height="100" rx="8" fill="rgba(14,165,233,0.15)" stroke="#38bdf8" strokeWidth="2" />
+      <text x="370" y="145" fill="#fff" fontSize="11" fontWeight="bold" textAnchor="middle">Ensemble</text>
+      <text x="370" y="160" fill="#fff" fontSize="11" fontWeight="bold" textAnchor="middle">Method</text>
+
+      {/* Output Arrow */}
+      <path d="M420 150 L470 150 M460 140 L475 150 L460 160" stroke="#38bdf8" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+      <text x="450" y="185" fill="#fff" fontSize="10" fontWeight="bold" textAnchor="middle">Final Predictions</text>
+    </svg>
+    <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '200px', height: '200px', background: 'radial-gradient(circle, rgba(56,189,248,0.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
+  </div>
+);
+
+const TemporalDiagram = () => (
+  <div style={{
+    position: 'relative', height: '400px', width: '100%',
+    background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: '24px', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center',
+    boxShadow: '0 20px 40px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.05)',
+    willChange: 'transform, opacity',
+    transform: 'translateZ(0)'
+  }}>
+    <svg width="100%" height="100%" viewBox="0 0 500 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="30" y="80" width="55" height="75" rx="4" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" />
+      <rect x="42" y="92" width="55" height="75" rx="4" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" />
+      <rect x="54" y="104" width="55" height="75" rx="4" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" />
+      <text x="54" y="200" fill="#a1a1aa" fontSize="9" textAnchor="middle">Video Sequence</text>
+      
+      <path d="M115 140 L145 140" stroke="rgba(56,189,248,0.3)" strokeWidth="1.5" strokeDasharray="3 3" />
+      
+      <rect x="145" y="105" width="70" height="70" rx="10" fill="rgba(14,165,233,0.1)" stroke="#0ea5e9" strokeWidth="1.5" />
+      <text x="180" y="135" fill="#fff" fontSize="11" fontWeight="bold" textAnchor="middle">CNN</text>
+      <text x="180" y="152" fill="#a1a1aa" fontSize="7" textAnchor="middle">Spatial Features</text>
+      
+      <path d="M215 140 L245 140" stroke="rgba(56,189,248,0.3)" strokeWidth="1.5" strokeDasharray="3 3" />
+      
+      <rect x="245" y="105" width="70" height="70" rx="10" fill="rgba(147,51,234,0.1)" stroke="#9333ea" strokeWidth="1.5" />
+      <text x="280" y="135" fill="#fff" fontSize="11" fontWeight="bold" textAnchor="middle">LSTM</text>
+      <text x="280" y="152" fill="#a1a1aa" fontSize="7" textAnchor="middle">Temporal Logic</text>
+
+      <path d="M315 140 L345 140" stroke="rgba(56,189,248,0.3)" strokeWidth="1.5" strokeDasharray="3 3" />
+
+      <rect x="345" y="105" width="70" height="70" rx="10" fill="rgba(236,72,153,0.1)" stroke="#ec4899" strokeWidth="1.5" />
+      <text x="380" y="135" fill="#fff" fontSize="11" fontWeight="bold" textAnchor="middle">FCNN</text>
+      <text x="380" y="152" fill="#a1a1aa" fontSize="7" textAnchor="middle">Classification</text>
+
+      <path d="M415 140 L445 140" stroke="rgba(56,189,248,0.3)" strokeWidth="1.5" strokeDasharray="3 3" />
+
+      <circle cx="460" cy="140" r="8" fill="#10b981" />
+      <text x="460" y="165" fill="#10b981" fontSize="9" textAnchor="middle">Verdict</text>
+    </svg>
+    <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '200px', height: '200px', background: 'radial-gradient(circle, rgba(147,51,234,0.05) 0%, transparent 70%)', pointerEvents: 'none' }} />
+  </div>
+);
+
 const gridFeatures = [
-  { icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z", title: "Open Source", desc: "100% open source framework. Inspect the models, weights, and detection code freely." },
-  { icon: "M13 2L3 14h9l-1 8 10-12h-9l1-8z", title: "Production Ready", desc: "Battle-tested with auto-scaling, asynchronous processing, and built in request validation." },
-  { icon: "M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83", title: "No Vendor Lock-in", desc: "Run your detection pipeline anywhere—on AWS, GCP, or your own on-prem hardware." },
-  { icon: "M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z", title: "Frame-Level CNN", desc: "Analyzes individual frames for spatial artifacts, blending anomalies, and resolution inconsistencies." },
-  { icon: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM12 8v4l3 3", title: "Temporal LSTM", desc: "Tracks micro-expressions and unnatural temporal variations across sequential frames." },
-  { icon: "M4 6h16M4 12h16M4 18h7", title: "100+ Integrations", desc: "Works out of the box with FastAPI, PyTorch, React, and major video processing pipelines." },
+  { icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z", title: "Ensemble Detection System", desc: "Combine multiple deepfake models using a meta-learning approach to improve accuracy and robustness." },
+  { icon: "M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z", title: "CNN + LSTM (Spatial + Temporal Analysis)", desc: "CNN detects frame-level artifacts and LSTM analyzes temporal inconsistencies across frames." },
+  { icon: "M13 2L3 14h9l-1 8 10-12h-9l1-8z", title: "Explainable AI (XAI)", desc: "Provide visual explanations and highlight manipulated regions along with predictions." },
 ];
 
 export default function Home() {
@@ -68,28 +156,51 @@ export default function Home() {
           </FadeIn>
 
           <FadeIn delay={0.15} yOffset={40}>
-            <h1 style={{ fontSize: "clamp(3rem, 7vw, 5.5rem)", fontWeight: "800", lineHeight: "1.05", letterSpacing: "-0.04em", marginBottom: "40px", color: "#ffffff", textShadow: "0 10px 30px rgba(0,0,0,0.5)" }}>
-              Detect the{" "}
-              <span style={{
-                color: "#fff",
-                fontFamily: "var(--font-fraunces), serif", fontStyle: "italic", paddingRight: "12px", display: "inline-block"
+            <h1 style={{ 
+              fontWeight: "900", 
+              lineHeight: "0.95", 
+              letterSpacing: "-0.04em", 
+              marginBottom: "40px", 
+              color: "#ffffff",
+              display: "flex",
+              flexDirection: "column",
+              gap: "8px"
+            }}>
+              <span style={{ 
+                fontFamily: "var(--font-barlow-condensed), sans-serif", 
+                fontSize: "clamp(2rem, 5vw, 3.2rem)",
+                textTransform: "uppercase",
+                opacity: 0.9,
+                letterSpacing: "0.02em"
               }}>
-                Truth
+                Detect Deepfakes with
               </span>
-              <br />in Every Frame.
+              <span style={{ 
+                fontFamily: "var(--font-fraunces), serif", 
+                fontStyle: "italic", 
+                fontSize: "clamp(3rem, 8vw, 5.5rem)",
+                fontWeight: "500",
+                background: "linear-gradient(to right, #fff, #38bdf8)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                paddingRight: "20px"
+              }}>
+                AI-powered Ensemble Models
+              </span>
             </h1>
           </FadeIn>
 
           <FadeIn delay={0.3} yOffset={30}>
-            <div style={{ fontSize: "clamp(1.2rem, 3vw, 1.8rem)", color: "rgba(255,255,255,0.8)", maxWidth: "850px", margin: "0 auto 56px", lineHeight: "1.6", fontWeight: "500", letterSpacing: "-0.01em" }}>
-              Veritas is an open AI engineering platform built to catch <span style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255, 255, 255, 0.05)", border: "1px solid rgba(255, 255, 255, 0.1)", padding: "2px 14px", borderRadius: "20px", color: "#fff", fontSize: "0.8em", transform: "translateY(-4px)" }}>
-                <span style={{ width: "6px", height: "6px", background: "#38bdf8", borderRadius: "50%" }} /> spatial anomalies
-              </span>
-              ,{" "}and identify{" "}
-              <span style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255, 255, 255, 0.05)", border: "1px solid rgba(255, 255, 255, 0.1)", padding: "2px 14px", borderRadius: "20px", color: "#fff", fontSize: "0.8em", transform: "translateY(-4px)", marginTop: "12px" }}>
-                ✨ temporal glitches
-              </span>
-              {" "}with production-grade accuracy.
+            <div style={{ 
+              fontSize: "clamp(1rem, 2vw, 1.25rem)", 
+              color: "rgba(255,255,255,0.5)", 
+              maxWidth: "680px", 
+              margin: "0 auto 56px", 
+              lineHeight: "1.8", 
+              fontWeight: "400",
+              letterSpacing: "0.01em"
+            }}>
+              A research-driven platform that analyzes videos using spatial and temporal deep learning models to identify manipulated content with production-grade accuracy.
             </div>
           </FadeIn>
 
@@ -123,8 +234,9 @@ export default function Home() {
                 onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.06)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.2)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
                 onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.02)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.transform = "translateY(0)"; }}
               >
-                Read Docs
+                Docs
               </Link>
+
             </div>
           </FadeIn>
 
@@ -132,9 +244,9 @@ export default function Home() {
           <FadeIn delay={0.55}>
             <div style={{ display: "flex", gap: "40px", justifyContent: "center", flexWrap: "wrap", marginTop: "16px", paddingTop: "48px", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
               {[
-                { value: "98.4%", label: "Detection Accuracy" },
-                { value: "20K+", label: "GitHub Stars" },
-                { value: "5M+", label: "Videos Analyzed" },
+                { value: "80%+", label: "Accuracy (Ensemble)" },
+                { value: "Logistic Regression", label: "Meta Learner" },
+                { value: "2000+", label: "Videos Tested" },
               ].map((stat) => (
                 <div key={stat.label} style={{ textAlign: "center" }}>
                   <div style={{ fontSize: "1.8rem", fontWeight: "800", letterSpacing: "-0.04em", color: "#fff" }}>{stat.value}</div>
@@ -157,13 +269,13 @@ export default function Home() {
               onMouseLeave={(e) => { e.currentTarget.style.background = "#050505"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 4px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)"; }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "32px" }}>
-                <span style={{ background: "rgba(255,255,255,0.05)", padding: "6px 16px", borderRadius: "20px", fontSize: "0.85rem", color: "#a1a1aa", fontWeight: "600" }}>01. Server</span>
+                <span style={{ background: "rgba(255,255,255,0.05)", padding: "6px 16px", borderRadius: "20px", fontSize: "0.85rem", color: "#a1a1aa", fontWeight: "600" }}>00. Server</span>
                 <span style={{ width: "8px", height: "8px", background: "#14b8a6", borderRadius: "50%", boxShadow: "0 0 10px #14b8a6" }}></span>
               </div>
-              <h3 style={{ fontSize: "1.4rem", fontWeight: "700", color: "#fff", marginBottom: "16px", letterSpacing: "-0.02em" }}>Start the Engine</h3>
-              <p style={{ fontSize: "0.95rem", color: "#71717a", marginBottom: "24px", lineHeight: "1.6" }}>Initialize the workflow automation and boot up the detection service instantly.</p>
+              <h3 style={{ fontSize: "1.4rem", fontWeight: "700", color: "#fff", marginBottom: "16px", letterSpacing: "-0.02em" }}>Start the engine</h3>
+              <p style={{ fontSize: "0.95rem", color: "#71717a", marginBottom: "24px", lineHeight: "1.6" }}>Backend engine using FastAPI to process videos and run detection models.</p>
               <div style={{ background: "#000", border: "1px solid rgba(255,255,255,0.03)", borderRadius: "12px", padding: "16px", fontFamily: "monospace", color: "#e2e8f0", fontSize: "0.85rem", overflowX: "auto", whiteSpace: "nowrap" }}>
-                <span style={{ color: "#34d399" }}>$</span> uvx veritas server
+                <span style={{ color: "#34d399" }}>$</span> uvicorn main:app --reload
               </div>
             </div>
           </FadeIn>
@@ -175,14 +287,13 @@ export default function Home() {
               onMouseLeave={(e) => { e.currentTarget.style.background = "#050505"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 4px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)"; }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "32px" }}>
-                <span style={{ background: "rgba(255,255,255,0.05)", padding: "6px 16px", borderRadius: "20px", fontSize: "0.85rem", color: "#a1a1aa", fontWeight: "600" }}>02. Trace</span>
+                <span style={{ background: "rgba(255,255,255,0.05)", padding: "6px 16px", borderRadius: "20px", fontSize: "0.85rem", color: "#a1a1aa", fontWeight: "600" }}>01. Application</span>
                 <span style={{ width: "8px", height: "8px", background: "#38bdf8", borderRadius: "50%", boxShadow: "0 0 10px #38bdf8" }}></span>
               </div>
-              <h3 style={{ fontSize: "1.4rem", fontWeight: "700", color: "#fff", marginBottom: "16px", letterSpacing: "-0.02em" }}>Enable Logging</h3>
-              <p style={{ fontSize: "0.95rem", color: "#71717a", marginBottom: "24px", lineHeight: "1.6" }}>Connect your script to monitor deepfake traces and model predictions in real time.</p>
+              <h3 style={{ fontSize: "1.4rem", fontWeight: "700", color: "#fff", marginBottom: "16px", letterSpacing: "-0.02em" }}>Real-time Detection</h3>
+              <p style={{ fontSize: "0.95rem", color: "#71717a", marginBottom: "24px", lineHeight: "1.6" }}>Get the Veritas.ai mobile app for scanning videos directly from your camera or screen capture.</p>
               <div style={{ background: "#000", border: "1px solid rgba(255,255,255,0.03)", borderRadius: "12px", padding: "16px", fontFamily: "monospace", color: "#e2e8f0", fontSize: "0.85rem", lineHeight: "1.6", overflowX: "auto", whiteSpace: "nowrap" }}>
-                <span style={{ color: "#ff7b72" }}>import</span> veritas<br/>
-                veritas.set_tracking_uri(<span style={{ color: "#a5d6ff" }}>"5000"</span>)
+                <Link href="/download" style={{ color: "#a5d6ff", textDecoration: "none" }}>Download APK →</Link>
               </div>
             </div>
           </FadeIn>
@@ -194,14 +305,13 @@ export default function Home() {
               onMouseLeave={(e) => { e.currentTarget.style.background = "#050505"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 4px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)"; }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "32px" }}>
-                <span style={{ background: "rgba(255,255,255,0.05)", padding: "6px 16px", borderRadius: "20px", fontSize: "0.85rem", color: "#a1a1aa", fontWeight: "600" }}>03. Run</span>
+                <span style={{ background: "rgba(255,255,255,0.05)", padding: "6px 16px", borderRadius: "20px", fontSize: "0.85rem", color: "#a1a1aa", fontWeight: "600" }}>10. Web Platform</span>
                 <span style={{ width: "8px", height: "8px", background: "#38bdf8", borderRadius: "50%", boxShadow: "0 0 10px #38bdf8" }}></span>
               </div>
-              <h3 style={{ fontSize: "1.4rem", fontWeight: "700", color: "#fff", marginBottom: "16px", letterSpacing: "-0.02em" }}>Predict Instantly</h3>
-              <p style={{ fontSize: "0.95rem", color: "#71717a", marginBottom: "24px", lineHeight: "1.6" }}>Run the spatial-temporal model to extract truth probabilities from raw pixels.</p>
+              <h3 style={{ fontSize: "1.4rem", fontWeight: "700", color: "#fff", marginBottom: "16px", letterSpacing: "-0.02em" }}>Upload & Analyze</h3>
+              <p style={{ fontSize: "0.95rem", color: "#71717a", marginBottom: "24px", lineHeight: "1.6" }}>Upload videos and get results with confidence score and explainability analysis.</p>
               <div style={{ background: "#000", border: "1px solid rgba(255,255,255,0.03)", borderRadius: "12px", padding: "16px", fontFamily: "monospace", color: "#e2e8f0", fontSize: "0.85rem", lineHeight: "1.6", overflowX: "auto", whiteSpace: "nowrap" }}>
-                client = veritas.Client()<br/>
-                client.analyze(<span style={{ color: "#a5d6ff" }}>"video.mp4"</span>)
+                <Link href="/analyze" style={{ color: "#34d399", textDecoration: "none" }}>Go to Analyze Page →</Link>
               </div>
             </div>
           </FadeIn>
@@ -215,7 +325,7 @@ export default function Home() {
           <div className="scrolling-tech-stack" style={{ display: "flex", gap: "80px", opacity: 0.35, filter: "grayscale(100%)", transition: "opacity 0.3s ease", paddingLeft: "80px" }}
                onMouseEnter={(e) => e.currentTarget.style.opacity = "0.8"}
                onMouseLeave={(e) => e.currentTarget.style.opacity = "0.35"}>
-            {[...["FastAPI", "PyTorch", "TensorFlow", "React.js", "Flutter", "Next.js", "Docker", "Kubernetes", "Redis", "PostgreSQL"], ...["FastAPI", "PyTorch", "TensorFlow", "React.js", "Flutter", "Next.js", "Docker", "Kubernetes", "Redis", "PostgreSQL"]].map((logo, index) => (
+            {[...["Flutter", "Next.js", "React", "FastAPI", "PyTorch", "Scikit-learn", "Docker"], ...["Flutter", "Next.js", "React", "FastAPI", "PyTorch", "Scikit-learn", "Docker"]].map((logo, index) => (
               <span key={`${logo}-${index}`} style={{ fontSize: "1.5rem", fontWeight: logo.toLowerCase() === "flutter" ? "300" : "700", letterSpacing: logo.toLowerCase() === "flutter" ? "0.1em" : "normal", fontStyle: logo === "TensorFlow" ? "italic" : "normal", flexShrink: 0, userSelect: "none" }}>
                 {logo}
               </span>
@@ -226,8 +336,8 @@ export default function Home() {
 
       {/* ── SPOTLIGHT 1 ────────────────────────────────────────────── */}
       <section style={{ position: "relative", padding: "160px 24px", overflow: "hidden" }}>
-        {/* Animated Parallax Background Text */}
-        <div className="animate-float" style={{ position: "absolute", top: "5%", left: "-5%", fontSize: "14vw", fontWeight: "900", color: "rgba(255,255,255,0.02)", userSelect: "none", zIndex: 0, letterSpacing: "-0.04em", whiteSpace: "nowrap" }}>
+        {/* Static Background Text */}
+        <div style={{ position: "absolute", top: "10%", right: "-5%", fontSize: "14vw", fontWeight: "900", textAlign: "right", color: "rgba(255,255,255,0.02)", userSelect: "none", zIndex: 0, letterSpacing: "-0.04em", pointerEvents: "none", contain: "strict" }}>
           DETECTION
         </div>
 
@@ -235,92 +345,55 @@ export default function Home() {
           <FadeIn delay={0.1}>
             <div>
               <div style={{ display: "inline-block", padding: "6px 14px", borderRadius: "20px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", fontSize: "0.8rem", color: "#a5b4fc", marginBottom: "20px", fontWeight: "600" }}>
-                01 — Spatial Architecture
+                01 — Meta-Learning
               </div>
               <h2 style={{ fontSize: "2.5rem", fontWeight: "800", letterSpacing: "-0.03em", marginBottom: "24px", lineHeight: "1.1" }}>
-                Pixel-Perfect <br/><span style={{ color: "rgba(255,255,255,0.4)" }}>Precision</span>
+                Ensemble Detection <br/><span style={{ color: "rgba(255,255,255,0.4)" }}>System</span>
               </h2>
               <p style={{ fontSize: "1.15rem", color: "rgba(255,255,255,0.55)", lineHeight: "1.7", marginBottom: "32px" }}>
-                Catch subtle blending edges, resolution discrepancies, and facial warp artifacts. Our customized CNN architecture acts as a microscope for individual frames, flagging pixels that human eyes miss.
+                Combined predictions from multiple deepfake detection models to improve overall accuracy and robustness. A meta learning approach is used to aggregate outputs and generate final verdict.
               </p>
               <Link href="/analyze" style={{ fontSize: "1rem", fontWeight: "600", color: "#fff", display: "inline-flex", alignItems: "center", gap: "8px", textDecoration: "none", borderBottom: "1px solid rgba(255,255,255,0.3)", paddingBottom: "4px", transition: "border-color 0.3s ease" }}
                     onMouseEnter={(e) => e.currentTarget.style.borderColor = "#fff"}
                     onMouseLeave={(e) => e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)"}>
-                Try detection →
+                Try ensemble detection →
               </Link>
             </div>
           </FadeIn>
           <FadeIn delay={0.3}>
-            {/* Syntax Highlighted Code Card (MLflow Style) */}
-            <div style={{
-              background: "#0a0a0c", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "12px", padding: "0",
-              boxShadow: "0 20px 40px rgba(0,0,0,0.8)", overflow: "hidden"
-            }}>
-              <div style={{ padding: "12px 20px", borderBottom: "1px solid rgba(255,255,255,0.05)", background: "rgba(255,255,255,0.02)", display: "flex", gap: "8px", alignItems: "center" }}>
-                <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#ff5f56" }} />
-                <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#ffbd2e" }} />
-                <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#27c93f" }} />
-                <span style={{ marginLeft: "12px", fontSize: "0.8rem", color: "rgba(255,255,255,0.4)", fontFamily: "monospace" }}>spatial_detector.py</span>
-              </div>
-              <pre style={{ padding: "24px", margin: 0, fontSize: "0.9rem", lineHeight: "1.7", color: "#e6edf3", overflowX: "auto", fontFamily: "'Courier New', Courier, monospace" }}>
-                <span style={{ color: "#ff7b72" }}>from</span> veritas.models <span style={{ color: "#ff7b72" }}>import</span> SpatialCNN<br /><br />
-                <span style={{ color: "#8b949e" }}># Initialize model for frame-by-frame analysis</span><br />
-                model = SpatialCNN(resolution=<span style={{ color: "#79c0ff" }}>1080</span>, mode=<span style={{ color: "#a5d6ff" }}>"hq"</span>)<br /><br />
-                <span style={{ color: "#ff7b72" }}>for</span> frame <span style={{ color: "#ff7b72" }}>in</span> video.frames():<br />
-                {"    "}artifacts = model.detect_artifacts(frame)<br />
-                {"    "}<span style={{ color: "#ff7b72" }}>if</span> artifacts.confidence <span style={{ color: "#ff7b72" }}>&gt;</span> <span style={{ color: "#79c0ff" }}>0.98</span>:<br />
-                {"        "}logger.alert(<span style={{ color: "#a5d6ff" }}>f"Anomaly found at {'{frame.time}'}"</span>)
-              </pre>
-            </div>
+            <EnsembleDiagram />
           </FadeIn>
         </div>
       </section>
 
       {/* ── SPOTLIGHT 2 ────────────────────────────────────────────── */}
       <section style={{ position: "relative", padding: "160px 24px", overflow: "hidden", background: "linear-gradient(180deg, transparent, rgba(255,255,255,0.01) 50%, transparent)", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
-        <div className="animate-float" style={{ position: "absolute", top: "10%", right: "-5%", fontSize: "14vw", fontWeight: "900", textAlign: "right", color: "rgba(255,255,255,0.02)", userSelect: "none", zIndex: 0, letterSpacing: "-0.04em" }}>
+        <div style={{ position: "absolute", top: "10%", right: "-5%", fontSize: "14vw", fontWeight: "900", textAlign: "right", color: "rgba(255,255,255,0.02)", userSelect: "none", zIndex: 0, letterSpacing: "-0.04em", pointerEvents: "none", contain: "strict" }}>
           TEMPORAL
         </div>
 
         <div style={{ position: "relative", zIndex: 1, maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "100px", alignItems: "center" }}>
           <FadeIn delay={0.3}>
-            {/* Syntax Highlighted Code Card (MLflow Style) */}
-            <div style={{
-              background: "#0a0a0c", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "12px", padding: "0",
-              boxShadow: "0 20px 40px rgba(0,0,0,0.8)", overflow: "hidden"
-            }}>
-              <div style={{ padding: "12px 20px", borderBottom: "1px solid rgba(255,255,255,0.05)", background: "rgba(255,255,255,0.02)", display: "flex", gap: "8px", alignItems: "center" }}>
-                <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#ff5f56" }} />
-                <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#ffbd2e" }} />
-                <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#27c93f" }} />
-                <span style={{ marginLeft: "12px", fontSize: "0.8rem", color: "rgba(255,255,255,0.4)", fontFamily: "monospace" }}>temporal_trace.py</span>
-              </div>
-              <pre style={{ padding: "24px", margin: 0, fontSize: "0.9rem", lineHeight: "1.7", color: "#e6edf3", overflowX: "auto", fontFamily: "'Courier New', Courier, monospace" }}>
-                <span style={{ color: "#ff7b72" }}>from</span> veritas.temporal <span style={{ color: "#ff7b72" }}>import</span> LSTMSearch<br /><br />
-                <span style={{ color: "#8b949e" }}># Extract facial micro-expressions</span><br />
-                trace = LSTMSearch(frames=video.extract_faces())<br /><br />
-                <span style={{ color: "#8b949e" }}># Check for temporal discrepancies like non-linear blinking</span><br />
-                report = trace.flag_micro_expressions()<br />
-                <span style={{ color: "#79c0ff" }}>print</span>(<span style={{ color: "#a5d6ff" }}>f"Glitch Probabilities: {'{report.stats}'}"</span>)
-              </pre>
-            </div>
+            <TemporalDiagram />
           </FadeIn>
           <FadeIn delay={0.1}>
             <div>
+            <div>
               <div style={{ display: "inline-block", padding: "6px 14px", borderRadius: "20px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", fontSize: "0.8rem", color: "#60a5fa", marginBottom: "20px", fontWeight: "600" }}>
-                02 — Micro-Expressions
+                02 — Spatial + Temporal Analysis
               </div>
               <h2 style={{ fontSize: "2.5rem", fontWeight: "800", letterSpacing: "-0.03em", marginBottom: "24px", lineHeight: "1.1" }}>
-                Temporal <br/><span style={{ color: "rgba(255,255,255,0.4)" }}>Consistency</span>
+                CNN + LSTM <br/><span style={{ color: "rgba(255,255,255,0.4)" }}>Architecture</span>
               </h2>
               <p style={{ fontSize: "1.15rem", color: "rgba(255,255,255,0.55)", lineHeight: "1.7", marginBottom: "32px" }}>
-                Deepfakes often fail at preserving consistent micro-expressions over time. Our LSTM sequence models track inter-frame discrepancies, identifying unnatural blinking patterns and lighting flickers.
+                Uses a CNN models to detect frame-level visual artifacts and LSTM networks to analyze temporal inconsistencies across video frames for better deepfake detection.
               </p>
-              <Link href="/about" style={{ fontSize: "1rem", fontWeight: "600", color: "#fff", display: "inline-flex", alignItems: "center", gap: "8px", textDecoration: "none", borderBottom: "1px solid rgba(255,255,255,0.3)", paddingBottom: "4px", transition: "border-color 0.3s ease" }}
+              <Link href="/analyze" style={{ fontSize: "1rem", fontWeight: "600", color: "#fff", display: "inline-flex", alignItems: "center", gap: "8px", textDecoration: "none", borderBottom: "1px solid rgba(255,255,255,0.3)", paddingBottom: "4px", transition: "border-color 0.3s ease" }}
                     onMouseEnter={(e) => e.currentTarget.style.borderColor = "#fff"}
                     onMouseLeave={(e) => e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)"}>
-                Read whitepaper →
+                Explore architecture →
               </Link>
+            </div>
             </div>
           </FadeIn>
         </div>
@@ -331,9 +404,9 @@ export default function Home() {
         <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
           <FadeIn>
             <div style={{ textAlign: "center", marginBottom: "60px" }}>
-              <h2 style={{ fontSize: "2.5rem", fontWeight: "800", letterSpacing: "-0.03em" }}>Unified API Gateway</h2>
+              <h2 style={{ fontSize: "2.5rem", fontWeight: "800", letterSpacing: "-0.03em" }}>Ease-to-use framework</h2>
               <p style={{ fontSize: "1.15rem", color: "rgba(255,255,255,0.55)", marginTop: "16px", maxWidth: "600px", margin: "16px auto 0" }}>
-                Integrate Veritas into your own platforms with our simple FastAPI endpoint. Built with automatic validation and tracing.
+                Integrate Veritas into your systems with a simple and flexible deepfake detection framework.
               </p>
             </div>
           </FadeIn>
@@ -351,15 +424,15 @@ export default function Home() {
                 <span style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.3)" }}>curl</span>
               </div>
               <pre style={{ padding: "40px", margin: 0, fontSize: "0.95rem", lineHeight: "1.8", color: "#e6edf3", overflowX: "auto", fontFamily: "'Courier New', Courier, monospace" }}>
-                <span style={{ color: "#ff7b72" }}>from</span> veritas.client <span style={{ color: "#ff7b72" }}>import</span> VeritasClient<br /><br />
-                client = VeritasClient(api_key=<span style={{ color: "#a5d6ff" }}>"YOUR_API_KEY"</span>)<br /><br />
-                <span style={{ color: "#8b949e" }}># One line deployment to analyze deepfakes</span><br />
-                result = <span style={{ color: "#ff7b72" }}>await</span> client.analyze.video(<br />
-                {"    "}file_path=<span style={{ color: "#a5d6ff" }}>"./suspect_video.mp4"</span>,<br />
-                {"    "}models=[<span style={{ color: "#a5d6ff" }}>"cnn"</span>, <span style={{ color: "#a5d6ff" }}>"lstm"</span>, <span style={{ color: "#a5d6ff" }}>"vit"</span>]<br />
-                )<br /><br />
-                <span style={{ color: "#79c0ff" }}>print</span>(<span style={{ color: "#a5d6ff" }}>f"Status: "</span>, result.verdict) <span style={{ color: "#8b949e" }}># DEEPFAKE</span><br />
-                <span style={{ color: "#79c0ff" }}>print</span>(<span style={{ color: "#a5d6ff" }}>f"Confidence: "</span>, result.confidence) <span style={{ color: "#8b949e" }}># 98.4%</span>
+                <span style={{ color: "#ff7b72" }}>from</span> EnsemCNet <span style={{ color: "#ff7b72" }}>import</span> detectDeepfake, extractFrame, metalearner<br /><br />
+                <span style={{ color: "#ff7b72" }}>if</span> __name__ == <span style={{ color: "#a5d6ff" }}>"__main__"</span>:<br /><br />
+                {"    "}video_path = r<span style={{ color: "#a5d6ff" }}>"enter your path"</span><br />
+                {"    "}output_path = r<span style={{ color: "#a5d6ff" }}>"enter your path"</span><br /><br />
+                {"    "}frame_folder = extractFrame(video_path, output_path)<br />
+                {"    "}model_output = detectDeepfake(frame_folder)<br />
+                {"    "}lr = metalearner()<br />
+                {"    "}pred = lr.predict(model_output)<br /><br />
+                {"    "}<span style={{ color: "#79c0ff" }}>print</span>(pred)
               </pre>
             </div>
           </FadeIn>

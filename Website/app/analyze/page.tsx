@@ -4,6 +4,19 @@ import Navbar from "../components/Navbar";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
+const Icon = ({ d, size = 20, className = "" }: { d: string; size?: number; className?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d={d} />
+  </svg>
+);
+
+const icons = {
+  clapperboard: "M4 11h16M10 22L7 11M17 22l-3-11M9 3l1 8M15 3l1 8M4 11V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6M4 11v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9",
+  alert: "M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0zM12 9v4M12 17h.01",
+  check: "M20 6L9 17l-5-5",
+  arrowRight: "M5 12h14M12 5l7 7-7 7"
+};
+
 type AnalysisResult = {
   label: "DEEPFAKE" | "REAL";
   confidence: number;
@@ -121,7 +134,9 @@ export default function Analyze() {
             boxShadow: dragging ? "0 0 30px rgba(56,189,248,0.15)" : "none",
           }}
         >
-          <div style={{ fontSize: "3rem", marginBottom: "16px" }}>🎬</div>
+          <div className="w-16 h-16 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mx-auto mb-6">
+            <Icon d={icons.clapperboard} size={32} className="text-blue-400" />
+          </div>
           <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "1.1rem", fontWeight: "600", marginBottom: "8px" }}>
             Drop your video here
           </p>
@@ -136,7 +151,7 @@ export default function Analyze() {
             background: "rgba(56,189,248,0.08)", border: "1px solid rgba(56,189,248,0.25)",
             color: "#38bdf8", padding: "10px 22px", borderRadius: "9999px", fontSize: "0.9rem", fontWeight: "500",
           }}>
-            <span>✓</span>
+            <Icon d={icons.check} size={14} />
             <span style={{ maxWidth: "320px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{file.name}</span>
             <span style={{ color: "rgba(56,189,248,0.6)", fontSize: "0.8rem" }}>({(file.size / (1024 * 1024)).toFixed(1)} MB)</span>
           </div>
@@ -156,6 +171,7 @@ export default function Analyze() {
             cursor: file && !loading ? "pointer" : "not-allowed",
             transition: "all 0.25s ease",
             boxShadow: file && !loading ? "0 0 24px rgba(14,165,233,0.35)" : "none",
+            display: "flex", alignItems: "center", gap: "10px"
           }}
           onMouseEnter={(e) => {
             if (file && !loading) {
@@ -170,7 +186,12 @@ export default function Analyze() {
             }
           }}
         >
-          {loading ? "Analyzing..." : "Analyze Video →"}
+          {loading ? "Analyzing..." : (
+            <>
+              Analyze Video
+              <Icon d={icons.arrowRight} size={16} />
+            </>
+          )}
         </button>
 
         {/* Loading Spinner */}
@@ -193,9 +214,11 @@ export default function Analyze() {
             borderRadius: "16px", padding: "24px 28px",
             background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.25)",
             backdropFilter: "blur(10px)",
-            display: "flex", alignItems: "flex-start", gap: "12px",
+            display: "flex", alignItems: "flex-start", gap: "16px",
           }}>
-            <span style={{ fontSize: "1.3rem", flexShrink: 0 }}>⚠️</span>
+            <div className="w-10 h-10 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
+              <Icon d={icons.alert} size={20} className="text-red-400" />
+            </div>
             <div>
               <p style={{ fontWeight: "600", color: "#f87171", marginBottom: "4px" }}>Analysis Failed</p>
               <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.875rem", lineHeight: "1.5" }}>{error}</p>

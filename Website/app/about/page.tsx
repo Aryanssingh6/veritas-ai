@@ -1,41 +1,58 @@
 "use client";
 import Navbar from "../components/Navbar";
 
+const Icon = ({ d, size = 20, className = "" }: { d: string; size?: number; className?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d={d} />
+  </svg>
+);
+
+const icons = {
+  brain: "M9.5 21a2.5 2.5 0 1 1 5 0 M12 3a7.5 7.5 0 0 0-7.5 7.5c0 1.26.31 2.45.86 3.49A5.5 5.5 0 0 1 7 21h10a5.5 5.5 0 0 1 1.64-10.01c.55-1.04.86-2.23.86-3.49A7.5 7.5 0 0 0 12 3Z",
+  smartphone: "M5 4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4Z M12 18h.01",
+  cloud: "M17.5 19c3.037 0 5.5-2.463 5.5-5.5 0-2.903-2.227-5.289-5.08-5.485C17.43 4.298 14.542 1 11 1 7.686 1 5 3.686 5 7c0 .19.01.378.03.565C2.185 8.169 0 10.824 0 14c0 3.314 2.686 6 6 6",
+  monitor: "M2 3h20a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2ZM7 21h10M12 18v3",
+  palette: "M12 2a10 10 0 1 0 10 10c0-1.1-.9-2-2-2h-2.17c-.55 0-1-.45-1-1 0-.55.45-1 1-1H20c0-3.5-2.5-6.5-6-7.5ZM12 7a2 2 0 1 1 0 4 2 2 0 0 1 0-4ZM8 10a2 2 0 1 1 0 4 2 2 0 0 1 0-4ZM12 14a2 2 0 1 1 0 4 2 2 0 0 1 0-4Z",
+  upload: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12",
+  barChart: "M18 20V10M12 20V4M6 20v-6",
+  target: "M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20ZM12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12ZM12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"
+};
+
 const team = [
   {
     name: "Vaibhav",
     role: "ML Architect",
     oneLiner: "Designed and trained the CNN+LSTM & Vision Transformer models for deepfake detection.",
-    emoji: "🧠",
-    linkedin: "https://linkedin.com",
+    icon: icons.brain,
+    linkedin: "https://www.linkedin.com/in/vaibhavsingh-mohane-70928a291?utm_source=share_via&utm_content=profile&utm_medium=member_android",
   },
   {
     name: "Nehanshu",
     role: "Mobile Engineer",
     oneLiner: "Built the Flutter mobile app that brings real-time deepfake detection to your pocket.",
-    emoji: "📱",
-    linkedin: "https://linkedin.com",
+    icon: icons.smartphone,
+    linkedin: "https://www.linkedin.com/in/nehanshu-surkar-3b5bb4266",
   },
   {
     name: "Krishna",
     role: "Cloud & Backend",
     oneLiner: "Architected the FastAPI server, database, and cloud deployment pipeline.",
-    emoji: "☁️",
-    linkedin: "https://linkedin.com",
+    icon: icons.cloud,
+    linkedin: "https://www.linkedin.com/in/krishna-shahu-192b503b8/",
   },
   {
     name: "Aryan",
     role: "Web Developer",
     oneLiner: "Built the Next.js web platform and integrated it with the detection backend.",
-    emoji: "💻",
+    icon: icons.monitor,
     linkedin: "https://www.linkedin.com/in/aryan-singh-7b4b0b2b0",
   },
   {
     name: "Saksham",
     role: "UI/UX & Documentation",
     oneLiner: "Crafted the design system, user experience, and wrote technical documentation.",
-    emoji: "🎨",
-    linkedin: "https://linkedin.com",
+    icon: icons.palette,
+    linkedin: "https://www.linkedin.com/in/saksham-rai-190b283a1/",
   },
 ];
 
@@ -47,9 +64,9 @@ const techStack = [
 ];
 
 const steps = [
-  { icon: "📤", step: "01", title: "Upload Video", desc: "User uploads a video file via drag & drop or file picker. Supports MP4, MOV, AVI formats.", side: "left" },
-  { icon: "🧠", step: "02", title: "AI Analysis", desc: "Our CNN + LSTM model analyzes spatial and temporal features frame by frame to detect manipulation.", side: "right" },
-  { icon: "📊", step: "03", title: "Get Results", desc: "Confidence score and REAL/DEEPFAKE verdict is displayed with detailed analysis breakdown.", side: "left" },
+  { icon: icons.upload, step: "01", title: "Upload Video", desc: "User uploads a video file via drag & drop or file picker. Supports MP4, MOV, AVI formats.", side: "left" },
+  { icon: icons.brain, step: "02", title: "AI Analysis", desc: "Our CNN + LSTM model analyzes spatial and temporal features frame by frame to detect manipulation.", side: "right" },
+  { icon: icons.barChart, step: "03", title: "Get Results", desc: "Confidence score and REAL/DEEPFAKE verdict is displayed with detailed analysis breakdown.", side: "left" },
 ];
 
 export default function About() {
@@ -94,8 +111,8 @@ export default function About() {
         }}>
           <div style={{ position: "absolute", top: 0, right: 0, width: "160px", height: "160px", background: "#3b82f6", borderRadius: "50%", filter: "blur(60px)", opacity: 0.08, pointerEvents: "none" }} />
           <div style={{ display: "flex", alignItems: "flex-start", gap: "20px" }}>
-            <div style={{ width: "48px", height: "48px", background: "rgba(14,30,100,0.6)", borderRadius: "14px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.5rem", flexShrink: 0 }}>
-              🎯
+            <div style={{ width: "48px", height: "48px", background: "rgba(14,30,100,0.6)", borderRadius: "14px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <Icon d={icons.target} size={24} className="text-cyan-400" />
             </div>
             <div>
               <h2 style={{ fontSize: "1.4rem", fontWeight: "700", marginBottom: "12px", letterSpacing: "-0.02em" }}>Problem Statement</h2>
@@ -143,10 +160,10 @@ export default function About() {
                     width: "56px", height: "56px", flexShrink: 0,
                     background: "linear-gradient(135deg, #2563eb, #06b6d4)",
                     borderRadius: "16px", display: "flex", alignItems: "center",
-                    justifyContent: "center", fontSize: "1.5rem",
+                    justifyContent: "center",
                     boxShadow: "0 8px 24px rgba(37,99,235,0.3)",
                   }}>
-                    {item.icon}
+                    <Icon d={item.icon} size={24} className="text-white" />
                   </div>
 
                   <div style={{ flex: 1 }} />
@@ -212,14 +229,14 @@ export default function About() {
                   width: "80px", height: "80px",
                   background: "linear-gradient(135deg, #2563eb, #06b6d4)",
                   borderRadius: "16px", display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: "1.875rem", marginBottom: "16px",
+                  marginBottom: "16px",
                   boxShadow: "0 8px 24px rgba(37,99,235,0.25)",
                   transition: "transform 0.2s ease",
                 }}
                   onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.05)"; }}
                   onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
                 >
-                  {member.emoji}
+                  <Icon d={member.icon} size={32} className="text-white" />
                 </div>
 
                 <h3 style={{ fontWeight: "700", color: "#fff", fontSize: "1.05rem" }}>{member.name}</h3>
